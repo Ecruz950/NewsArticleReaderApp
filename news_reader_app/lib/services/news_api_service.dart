@@ -4,8 +4,8 @@ import '../models/article.dart';
 
 // Service for fetching news articles from the News API
 class NewsApiService {
-  // API key for the News API (You are free to use this key for grading purposes only)
-  static const _apiKey = 'c6443acf0cbe4794aac2ff848dd98121';
+  // API key for the News API 
+  static const _apiKey = ''; // Insert your api key here as a single quote string
   static const _baseUrl = 'https://newsapi.org/v2'; // Base URL for the News API
 
   // Fetches articles based on the search query, sort option, and language

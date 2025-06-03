@@ -1,29 +1,77 @@
 # NewsArticleReaderApp
 
-1. What does your app do?
+## Overview
 
-My app is a news reader that allows users to search for news articles based on their queries. It enables users to view detailed information about each article, bookmark their favorite articles for later, and keep track of the articles they've read. Users can sort the search results by relevance, popularity, or the latest publications. Additionally, they can filter articles by language, choosing from a variety of options such as English, Spanish, French, and more. The app ensures that previous searches and bookmarked or read articles are saved locally, so users can access their history and preferences across sessions. Articles in the bookmarked list view or in the read view can also be dismissed by swiping right on a article. The user also has the ability to visit the article URL link to view the full article.
+**NewsArticleReaderApp** is a Flutter application that allows users to search for and read news articles in real time. Users can:
+- Search for articles based on custom queries
+- View detailed article information
+- Bookmark favorite articles
+- Track previously read articles
+- Sort results by relevance, popularity, or latest publications
+- Filter by language (e.g., English, Spanish, French)
+- Swipe right to dismiss bookmarked/read articles
+- Visit original sources via URL links
 
-2. What external data source(s) did you use? What form do they take (e.g., RESTful API, cloud-based database, etc.)?
+The app saves all searches, bookmarks, and read history locally, ensuring a seamless experience across sessions.
 
-I used the NewsAPI as the external data source for my app. NewsAPI is a RESTful API that provides access to a vast array of news articles from different sources and publishers. It allows me to fetch articles based on specific search queries and apply sorting and filtering options like relevance, popularity, date of publication, and language.
+---
 
-3. What additional third-party packages or libraries did you use, if any? Why?
+## Features
 
-Additional third-party packages that I integrated in my app:
-- [`url_launcher`](https://pub.dev/packages/url_launcher): This package allows the app to open URLs in the user's browser, which is useful for letting users read the full news articles directly from their sources.
-- [`intl`](https://pub.dev/packages/intl): I used this for formatting dates, which makes it easier to display the publication dates of articles in a user-friendly format.
+- Real-time search with sorting and language filters  
+- Bookmark and read tracking  
+- Persistent local storage using `shared_preferences`  
+- Launch full articles in the browser  
+- Swipe-to-dismiss for bookmarked and read articles   
+- Optimized for iOS simulator use
 
-4. What form of local data persistence did you use?
+![DemoApp](Assets/Videos/DemoApp.gif)
 
-I used shared_preferences for local data persistence in my app. This approach allows me to store and manage simple key-value pairs on the user's device. With shared_preferences, I can save and retrieve the user's previous search queries, bookmarked articles, and read articles, ensuring that these preferences are maintained even when the app is closed and reopened.
+---
 
-5. What workflow is tested by your integration test?
+## Data Source
 
-In my integration test, I thoroughly verify the primary user workflow within the news reader application. Initially, the test begins by launching the app using app.main(), and I ensure that the application initializes correctly and renders properly with tester.pumpAndSettle(). This step sets up the environment to simulate user interactions. Following this, the test simulates a user searching for articles. It finds the search bar on the home screen, enters a query such as 'flutter', and then triggers the search by tapping the search icon. After executing the search, I wait for the application to display the search results using tester.pumpAndSettle() to ensure everything is rendered as expected. Once the search results are displayed, the test checks that articles matching the query appear in a list of ListTile widgets. This ensures that the search functionality is working correctly and that the application is displaying the articles as expected.The test then simulates bookmarking an article by identifying the first article in the search results and locating the bookmark icon within that article's tile. By tapping the bookmark icon, the article is added to the list of bookmarked articles. I verify this action by waiting for the application to update the bookmark state. To test the bookmarking feature further, the integration test navigates to the bookmarks screen by simulating a tap on the bookmark icon in the app's navigation bar. I ensure the app transitions to the bookmarks screen and displays it properly by calling tester.pumpAndSettle(). Finally, the test verifies that the previously bookmarked article is present on the bookmarks screen. It checks for the presence of ListTile widgets that correspond to the bookmarked articles, confirming that the bookmarking functionality works as intended. Overall, this integration test ensures that the core workflow of the news reader application—including starting the app, searching for articles, bookmarking them, and viewing bookmarks—is functioning smoothly and as expected.
+This application uses [**NewsAPI**](https://newsapi.org/) — a RESTful API that aggregates news from various sources and publishers worldwide. It supports queries, filters, and sorting to fetch up-to-date, relevant news articles.
 
-## Summary and Reflection
+---
 
-In developing the news reader application, I made several key implementation decisions to enhance functionality and user experience. One notable decision was to integrate the NewsAPI for fetching articles, which allowed me to provide real-time news updates based on user searches. I employed a state management solution using the provider package to handle the application’s state, ensuring efficient data management and seamless user interactions. Additionally, I implemented the bookmark feature with a toggle mechanism on the bookmark icon, making it intuitive for users to add or remove bookmarks. For data persistence, I used shared_preferences to store user preferences and bookmarked articles, ensuring that data is retained across app sessions. One challenge I faced was handling cases where articles might not have images or certain descriptions, which required adding placeholders and conditional rendering to maintain a consistent user interface. Also, I included both unit and widget tests to validate the core functionalities which my program passed. Despite thorough testing, my program couldn't fully pass the integration test as the test struggled with ambiguity in locating specific icons. More specifically, the integration test would fail at the 'Bookmark and view bookmarked articles' portion of the test. **I would also like to note that my application does not function properly when it is ran on macOS. I have been running my application with a iOS simulator and it functions appropriately on it.** Overall, these implementation decisions aimed to create a responsive and user-friendly news reader app while maintaining robust functionality and reliable data handling.
+## Dependencies
 
-Working on this machine problem was both an engaging and educational experience. I particularly enjoyed integrating the NewsAPI and observing how real-time data could enhance the application's relevance and usefulness. The dynamic interaction between the search functionality and live news updates provided a tangible sense of achievement as the application came to life. One aspect I found challenging was managing the application's state effectively, especially with the integration of bookmarks and persistent data storage as it required a deep understanding of state management principles and the provider package. Additionally, ensuring that the UI handled missing data gracefully, such as articles without images or descriptions, posed a significant challenge but ultimately improved the user experience. Overall, this project was a valuable learning experience as it highlighted the importance of state management, user-friendly design, and meticulous testing in app development.
+The following third-party packages were integrated:
+
+- [`url_launcher`](https://pub.dev/packages/url_launcher): To open article URLs in a web browser.
+- [`intl`](https://pub.dev/packages/intl): To format and present article publication dates clearly.
+- [`shared_preferences`](https://pub.dev/packages/shared_preferences): For saving search history, bookmarks, and read articles persistently across sessions.
+- [`provider`](https://pub.dev/packages/provider): For effective state management throughout the app.
+
+---
+
+## Local Data Persistence
+
+The app uses `shared_preferences` to store:
+- User search queries
+- List of bookmarked articles
+- List of read articles
+
+This enables consistent user experience, even after closing or restarting the app.
+
+---
+
+## Usage Instructions
+
+1. Clone or download the repository.
+2. Run `flutter pub get` to fetch all dependencies.
+3. Obtain an API key from [https://newsapi.org](https://newsapi.org) and configure it within the `news_api_service.dart` file located within the news_reader_app/lib/services folder.
+4. Run the app using an **iOS simulator** 
+5. Start searching and bookmarking your favorite articles!
+
+---
+## Developer Notes
+
+This project was a valuable hands-on experience in real-world app design, data handling, state management, and testing. I enjoyed connecting real-time APIs with a well-designed UI, and learned a lot about debugging, persistence, and improving UX based on edge cases (e.g., missing data). Future improvements could include fixing test ambiguity, expanding platform compatibility, and enhancing UI accessibility.
+
+---
+
+## License
+
+This project is for educational purposes and does not carry a specific license. Please ensure compliance with [NewsAPI's usage policy](https://newsapi.org/pricing).

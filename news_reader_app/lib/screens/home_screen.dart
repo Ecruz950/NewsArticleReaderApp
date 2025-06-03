@@ -14,8 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _selectedSort = 'publishedAt'; // Default sort option
-  String _selectedLanguage = 'all'; // Default language
+  String _selectedSort = 'relevancy'; // Default sort option
+  String _selectedLanguage = 'en'; // Default language
   final TextEditingController _searchController =
       TextEditingController(); // Controller for search query
 
